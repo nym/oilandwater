@@ -52,11 +52,12 @@
 	//addBox(470,230,20,200,b2Body.b2_staticBody,false);
 	
 	// this is the water (is Sensor)
-	addBox(320,245,280,170,b2Body.b2_staticBody,true);
+	addBox(300,245,480,470,b2Body.b2_staticBody,true);
 
 	floor();
 	sphereVector=[];
-	sphereVector.push(sphere(blobX,blobY,25));
+
+	sphereVector.push(sphere(blobX,blobY,15));
 	for (var i=0; i<particleNumber; i++) {
 		var angle=(2*Math.PI)/particleNumber*i;
 		var posX=blobX+particleDistance*Math.cos(angle);
@@ -101,9 +102,24 @@
 	waterCanvas.graphics.drawRect(180,160,280,170);
 	waterCanvas.graphics.endFill();
 */
-	
+	document.addEventListener("keypress", function(e){
+		if (e.keyCode == 97) {
+			console.log("L");
+			console.log(sphereVector[0]);
+			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
+				if (sphereVector[0].GetLinearVelocity().x > -10) {//if we haven't reached the max speed in this direction
+					sphereVector[0].ApplyImpulse(new b2Vec2( -1, 0), sphereVector[0].GetWorldCenter());
+				}
+			}
+		}
+		if (e.keyCode == 100) {
+				if (sphereVector[0].GetLinearVelocity().x < 10) {
+					sphereVector[0].ApplyImpulse(new b2Vec2( 1, 0), sphereVector[0].GetWorldCenter());
+				}
+		}
+	});
 	document.addEventListener("mousedown",function(e){
-		addBox(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
+		//addBox(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
 	});
 	
 	function sphere(pX,pY,r) {
@@ -195,3 +211,4 @@
 	}
 	
 })();
+
