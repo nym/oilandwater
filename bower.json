@@ -1,0 +1,26 @@
+{
+  "name": "Box2D",
+  "version": "0.0.1",
+  "authors": [
+    "darkoverlordofdata <darkoverlordofdata@gmail.com>"
+  ],
+  "description": "Box2D coffeescript",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bin",
+    "tmp",
+    "build",
+    "node_modules",
+    "packages",
+    "web/packages",
+    "tmp",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  },
+  "packages": {
+  }
+}

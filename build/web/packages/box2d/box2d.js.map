@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "box2d.js",
+  "sourceRoot": "../../../tmp/",
+  "sources": [
+    "box2d.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA"
+}
