@@ -117,6 +117,16 @@
 					sphereVector[0].ApplyImpulse(new b2Vec2( 1, 0), sphereVector[0].GetWorldCenter());
 				}
 		}
+		d = sphereVector[0].m_fixtureList.m_density;
+		if (e.keyCode == 115) {
+			sphereVector[0].m_fixtureList.SetDensity(d+0.1);
+			sphereVector[0].ResetMassData();
+		}
+		if (e.keyCode == 119) {
+			sphereVector[0].m_fixtureList.SetDensity(d-0.1);
+			sphereVector[0].ResetMassData();
+		}
+
 	});
 	document.addEventListener("mousedown",function(e){
 		//addBox(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
@@ -211,4 +221,3 @@
 	}
 	
 })();
-
