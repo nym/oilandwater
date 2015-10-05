@@ -107,13 +107,13 @@
 			console.log("L");
 			console.log(sphereVector[0]);
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
-				if (sphereVector[0].GetLinearVelocity().x > -10) {//if we haven't reached the max speed in this direction
+				if (sphereVector[0].GetLinearVelocity().x > -20) {//if we haven't reached the max speed in this direction
 					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
 				}
 			}
 		}
 		if (e.keyCode == 100) {
-				if (sphereVector[0].GetLinearVelocity().x < 10) {
+				if (sphereVector[0].GetLinearVelocity().x < 20) {
 					sphereVector[0].ApplyImpulse(new b2Vec2( 2, 0), sphereVector[0].GetWorldCenter());
 				}
 		}
