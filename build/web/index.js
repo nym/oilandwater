@@ -52,7 +52,7 @@
 	//addBox(470,230,20,200,b2Body.b2_staticBody,false);
 	
 	// this is the water (is Sensor)
-	addBox(300,245,480,470,b2Body.b2_staticBody,true);
+	addBox(300,445,480,370,b2Body.b2_staticBody,true);
 
 	floor();
 	sphereVector=[];
@@ -108,23 +108,31 @@
 			console.log(sphereVector[0]);
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
 				if (sphereVector[0].GetLinearVelocity().x > -10) {//if we haven't reached the max speed in this direction
-					sphereVector[0].ApplyImpulse(new b2Vec2( -1, 0), sphereVector[0].GetWorldCenter());
+					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
 				}
 			}
 		}
 		if (e.keyCode == 100) {
 				if (sphereVector[0].GetLinearVelocity().x < 10) {
-					sphereVector[0].ApplyImpulse(new b2Vec2( 1, 0), sphereVector[0].GetWorldCenter());
+					sphereVector[0].ApplyImpulse(new b2Vec2( 2, 0), sphereVector[0].GetWorldCenter());
 				}
 		}
 		d = sphereVector[0].m_fixtureList.m_density;
-		if (e.keyCode == 115) {
-			sphereVector[0].m_fixtureList.SetDensity(d+0.1);
-			sphereVector[0].ResetMassData();
+		if (e.keyCode == 115 ) {
+			if (sphereVector[0].GetLinearVelocity().y > -20) {
+
+				sphereVector[0].ApplyImpulse(new b2Vec2( 0, 2), sphereVector[0].GetWorldCenter());
+				sphereVector[0].m_fixtureList.SetDensity(d+0.1);
+				sphereVector[0].ResetMassData();
+			}
 		}
-		if (e.keyCode == 119) {
-			sphereVector[0].m_fixtureList.SetDensity(d-0.1);
-			sphereVector[0].ResetMassData();
+		if (e.keyCode == 119 ) {
+			if (sphereVector[0].GetLinearVelocity().y < 20) {
+
+				sphereVector[0].ApplyImpulse(new b2Vec2( 0, -4), sphereVector[0].GetWorldCenter());
+				sphereVector[0].m_fixtureList.SetDensity(d-0.1);
+				sphereVector[0].ResetMassData();
+			}
 		}
 
 	});
@@ -150,9 +158,9 @@
 	
 	function floor() {
 		var bodyDef=new b2BodyDef();
-		bodyDef.position.Set(320/worldScale,465/worldScale);
+		bodyDef.position.Set(10/worldScale,765/worldScale);
 		var polygonShape=new b2PolygonShape();
-		polygonShape.SetAsBox(320/worldScale,15/worldScale);
+		polygonShape.SetAsBox(720/worldScale,15/worldScale);
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=polygonShape;
 		fixtureDef.restitution=0.4;
@@ -160,6 +168,7 @@
 		var theFloor=world.CreateBody(bodyDef);
 		theFloor.CreateFixture(fixtureDef);
 	}
+
 
 	function addBox(pX,pY,w,h,bodyType,isSensor){
 		var bodyDef=new b2BodyDef();
