@@ -52,25 +52,28 @@
 	//addBox(470,230,20,200,b2Body.b2_staticBody,false);
 	
 	// this is the water (is Sensor)
-	addBox(300,445,480,370,b2Body.b2_staticBody,true);
+	addBox(3,1045,1080,1070,b2Body.b2_staticBody,true);
 
 	floor();
+	ceiling();
+	left();
+	right();
 	sphereVector=[];
 
-	sphereVector.push(sphere(blobX,blobY,15));
+	sphereVector.push(sphere(blobX,blobY,25));
 	for (var i=0; i<particleNumber; i++) {
 		var angle=(2*Math.PI)/particleNumber*i;
 		var posX=blobX+particleDistance*Math.cos(angle);
 		var posY=blobY+particleDistance*Math.sin(angle);
-		sphereVector.push(sphere(posX,posY,2));
+		sphereVector.push(sphere(posX,posY,1));
 		var dJoint=new b2DistanceJointDef();
 		dJoint.bodyA=sphereVector[0];
 		dJoint.bodyB=sphereVector[sphereVector.length-1];
 		dJoint.localAnchorA=new b2Vec2(0,0);
 		dJoint.localAnchorB=new b2Vec2(0,0);
 		dJoint.length=particleDistance/worldScale;
-		dJoint.dampingRatio=0.5;
-		dJoint.frequencyHz=5;
+		dJoint.dampingRatio=0.6;
+		dJoint.frequencyHz=4;
 		var distanceJoint;
 		distanceJoint=world.CreateJoint(dJoint);
 		if (i>0) {
@@ -122,7 +125,7 @@
 			if (sphereVector[0].GetLinearVelocity().y > -20) {
 
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, 2), sphereVector[0].GetWorldCenter());
-				sphereVector[0].m_fixtureList.SetDensity(d+0.1);
+				sphereVector[0].m_fixtureList.SetDensity(d+0.05);
 				sphereVector[0].ResetMassData();
 			}
 		}
@@ -130,7 +133,7 @@
 			if (sphereVector[0].GetLinearVelocity().y < 20) {
 
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, -4), sphereVector[0].GetWorldCenter());
-				sphereVector[0].m_fixtureList.SetDensity(d-0.1);
+				sphereVector[0].m_fixtureList.SetDensity(d-0.05);
 				sphereVector[0].ResetMassData();
 			}
 		}
@@ -150,7 +153,7 @@
 		fixtureDef.shape=circleShape;
 		fixtureDef.density=1;
 		fixtureDef.restitution=0.4;
-		fixtureDef.friction=0.5;
+		fixtureDef.friction=0.9;
 		var theSphere=world.CreateBody(bodyDef);
 		theSphere.CreateFixture(fixtureDef);
 		return theSphere;
@@ -158,9 +161,10 @@
 	
 	function floor() {
 		var bodyDef=new b2BodyDef();
-		bodyDef.position.Set(10/worldScale,765/worldScale);
+
+		bodyDef.position.Set(899/worldScale,899/worldScale);
 		var polygonShape=new b2PolygonShape();
-		polygonShape.SetAsBox(720/worldScale,15/worldScale);
+		polygonShape.SetAsBox(5000/worldScale,15/worldScale);
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=polygonShape;
 		fixtureDef.restitution=0.4;
@@ -169,6 +173,44 @@
 		theFloor.CreateFixture(fixtureDef);
 	}
 
+	function left() {
+		var bodyDef=new b2BodyDef();
+
+		bodyDef.position.Set(10/worldScale,10/worldScale);
+		var polygonShape=new b2PolygonShape();
+		polygonShape.SetAsBox(20/worldScale,1000/worldScale);
+		var fixtureDef=new b2FixtureDef();
+		fixtureDef.shape=polygonShape;
+		fixtureDef.restitution=0.4;
+		fixtureDef.friction=0.5;
+		var theFloor=world.CreateBody(bodyDef);
+		theFloor.CreateFixture(fixtureDef);
+	}
+	function right() {
+		var bodyDef=new b2BodyDef();
+
+		bodyDef.position.Set(1699/worldScale,100/worldScale);
+		var polygonShape=new b2PolygonShape();
+		polygonShape.SetAsBox(100/worldScale,1100/worldScale);
+		var fixtureDef=new b2FixtureDef();
+		fixtureDef.shape=polygonShape;
+		fixtureDef.restitution=0.4;
+		fixtureDef.friction=0.5;
+		var theFloor=world.CreateBody(bodyDef);
+		theFloor.CreateFixture(fixtureDef);
+	}
+	function ceiling() {
+		var bodyDef=new b2BodyDef();
+		bodyDef.position.Set(1/worldScale,10/worldScale);
+		var polygonShape=new b2PolygonShape();
+		polygonShape.SetAsBox(5000/worldScale,15/worldScale);
+		var fixtureDef=new b2FixtureDef();
+		fixtureDef.shape=polygonShape;
+		fixtureDef.restitution=0.4;
+		fixtureDef.friction=0.5;
+		var theFloor=world.CreateBody(bodyDef);
+		theFloor.CreateFixture(fixtureDef);
+	}
 
 	function addBox(pX,pY,w,h,bodyType,isSensor){
 		var bodyDef=new b2BodyDef();
