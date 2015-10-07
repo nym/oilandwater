@@ -107,8 +107,6 @@
 */
 	document.addEventListener("keypress", function(e){
 		if (e.keyCode == 97) {
-			console.log("L");
-			console.log(sphereVector[0]);
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
 				if (sphereVector[0].GetLinearVelocity().x > -20) {//if we haven't reached the max speed in this direction
 					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
@@ -127,6 +125,8 @@
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, 2), sphereVector[0].GetWorldCenter());
 				sphereVector[0].m_fixtureList.SetDensity(d+0.05);
 				sphereVector[0].ResetMassData();
+				bubble(sphereVector[0].GetPosition().x,sphereVector[0].GetPosition().y);
+
 			}
 		}
 		if (e.keyCode == 119 ) {
@@ -156,6 +156,24 @@
 		fixtureDef.friction=0.9;
 		var theSphere=world.CreateBody(bodyDef);
 		theSphere.CreateFixture(fixtureDef);
+		return theSphere;
+	}
+	
+	function bubble(pX,pY) {
+		var bodyDef=new b2BodyDef();
+		bodyDef.position.Set(pX,pY);
+		bodyDef.type=b2Body.b2_dynamicBody;
+		var circleShape;
+		circleShape=new b2CircleShape(10*Math.random()/worldScale);
+		var fixtureDef=new b2FixtureDef();
+		fixtureDef.shape=circleShape;
+		fixtureDef.isSensor=true;
+		fixtureDef.density=0.1;
+		fixtureDef.restitution=0.4;
+		fixtureDef.friction=0.1;
+		var theSphere=world.CreateBody(bodyDef); 
+		theSphere.CreateFixture(fixtureDef);
+		setTimeout(function(){world.DestroyBody(theSphere)}, 2500);
 		return theSphere;
 	}
 	
