@@ -110,12 +110,17 @@
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
 				if (sphereVector[0].GetLinearVelocity().x > -20) {//if we haven't reached the max speed in this direction
 					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
+					var s = bubble(sphereVector[0].GetPosition().x+5, sphereVector[0].GetPosition().y, 10);
+					s.ApplyImpulse(new b2Vec2( 10, 0), sphereVector[0].GetWorldCenter());
 				}
 			}
 		}
 		if (e.keyCode == 100) {
 				if (sphereVector[0].GetLinearVelocity().x < 20) {
 					sphereVector[0].ApplyImpulse(new b2Vec2( 2, 0), sphereVector[0].GetWorldCenter());
+					var s = bubble(sphereVector[0].GetPosition().x-5, sphereVector[0].GetPosition().y, 10);
+					s.ApplyImpulse(new b2Vec2( -10, 0), sphereVector[0].GetWorldCenter());
+
 				}
 		}
 		d = sphereVector[0].m_fixtureList.m_density;
@@ -125,7 +130,8 @@
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, 2), sphereVector[0].GetWorldCenter());
 				sphereVector[0].m_fixtureList.SetDensity(d+0.05);
 				sphereVector[0].ResetMassData();
-				bubble(sphereVector[0].GetPosition().x,sphereVector[0].GetPosition().y);
+				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y-5, 10);
+				s.ApplyImpulse(new b2Vec2( 0, -10), sphereVector[0].GetWorldCenter());
 
 			}
 		}
@@ -135,13 +141,14 @@
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, -4), sphereVector[0].GetWorldCenter());
 				sphereVector[0].m_fixtureList.SetDensity(d-0.05);
 				sphereVector[0].ResetMassData();
+				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y+5, 10);
+				s.ApplyImpulse(new b2Vec2( 0, 10), sphereVector[0].GetWorldCenter());
+
 			}
 		}
 
 	});
-	document.addEventListener("mousedown",function(e){
-		//addBox(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
-	});
+
 	
 	function sphere(pX,pY,r) {
 		var bodyDef=new b2BodyDef();
@@ -151,7 +158,7 @@
 		circleShape=new b2CircleShape(r/worldScale);
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=circleShape;
-		fixtureDef.density=1;
+		fixtureDef.density=2;
 		fixtureDef.restitution=0.4;
 		fixtureDef.friction=0.9;
 		var theSphere=world.CreateBody(bodyDef);
@@ -168,7 +175,7 @@
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=circleShape;
 		fixtureDef.isSensor=true;
-		fixtureDef.density=0.1;
+		fixtureDef.density=1;
 		fixtureDef.restitution=0.4;
 		fixtureDef.friction=0.1;
 		var theSphere=world.CreateBody(bodyDef); 
@@ -176,6 +183,11 @@
 		setTimeout(function(){world.DestroyBody(theSphere)}, 2500);
 		return theSphere;
 	}
+
+	document.addEventListener("mousedown",function(e){
+		//addBox(e.clientX * 1.3,e.clientY*1.3,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
+
+	});
 	
 	function floor() {
 		var bodyDef=new b2BodyDef();
@@ -203,6 +215,8 @@
 		fixtureDef.friction=0.5;
 		var theFloor=world.CreateBody(bodyDef);
 		theFloor.CreateFixture(fixtureDef);
+
+
 	}
 	function right() {
 		var bodyDef=new b2BodyDef();
@@ -216,6 +230,8 @@
 		fixtureDef.friction=0.5;
 		var theFloor=world.CreateBody(bodyDef);
 		theFloor.CreateFixture(fixtureDef);
+
+
 	}
 	function ceiling() {
 		var bodyDef=new b2BodyDef();
