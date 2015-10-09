@@ -111,7 +111,7 @@
 				if (sphereVector[0].GetLinearVelocity().x > -20) {//if we haven't reached the max speed in this direction
 					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
 					var s = bubble(sphereVector[0].GetPosition().x+5, sphereVector[0].GetPosition().y, 10);
-					s.ApplyImpulse(new b2Vec2( 10, 0), sphereVector[0].GetWorldCenter());
+					s.ApplyImpulse(new b2Vec2( 10, 0), s.GetWorldCenter());
 				}
 			}
 		}
@@ -119,7 +119,7 @@
 				if (sphereVector[0].GetLinearVelocity().x < 20) {
 					sphereVector[0].ApplyImpulse(new b2Vec2( 2, 0), sphereVector[0].GetWorldCenter());
 					var s = bubble(sphereVector[0].GetPosition().x-5, sphereVector[0].GetPosition().y, 10);
-					s.ApplyImpulse(new b2Vec2( -10, 0), sphereVector[0].GetWorldCenter());
+					s.ApplyImpulse(new b2Vec2( -10, 0), s.GetWorldCenter());
 
 				}
 		}
@@ -131,7 +131,7 @@
 				sphereVector[0].m_fixtureList.SetDensity(d+0.05);
 				sphereVector[0].ResetMassData();
 				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y-5, 10);
-				s.ApplyImpulse(new b2Vec2( 0, -10), sphereVector[0].GetWorldCenter());
+				s.ApplyImpulse(new b2Vec2( 0, -10), s.GetWorldCenter());
 
 			}
 		}
@@ -142,7 +142,7 @@
 				sphereVector[0].m_fixtureList.SetDensity(d-0.05);
 				sphereVector[0].ResetMassData();
 				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y+5, 10);
-				s.ApplyImpulse(new b2Vec2( 0, 10), sphereVector[0].GetWorldCenter());
+				s.ApplyImpulse(new b2Vec2( 0, 10), s.GetWorldCenter());
 
 			}
 		}
@@ -175,7 +175,7 @@
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=circleShape;
 		fixtureDef.isSensor=true;
-		fixtureDef.density=1;
+		fixtureDef.density=0;
 		fixtureDef.restitution=0.4;
 		fixtureDef.friction=0.1;
 		var theSphere=world.CreateBody(bodyDef); 
