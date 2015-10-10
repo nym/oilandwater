@@ -185,8 +185,8 @@
 	}
 
 	document.addEventListener("mousedown",function(e){
-		//addBox(e.clientX * 1.3,e.clientY*1.3,Math.random()*40,Math.random()*30,b2Body.b2_dynamicBody,false);
-
+		fluff(e.clientX * 1.3,e.clientY*1.3,Math.random()*10,Math.random()*10,b2Body.b2_dynamicBody,false);
+		//fluff(e.clientX * 2,e.clientY*2);
 	});
 	
 	function floor() {
@@ -246,6 +246,24 @@
 		theFloor.CreateFixture(fixtureDef);
 	}
 
+	function fluff(pX,pY,w,h,bodyType,isSensor) {
+		var bodyDef=new b2BodyDef();
+		bodyDef.position.Set(pX/worldScale,pY/worldScale);
+		bodyDef.type=b2Body.b2_dynamicBody;
+		var circleShape;
+		circleShape=new b2CircleShape(w/worldScale);
+		var fixtureDef=new b2FixtureDef();
+		fixtureDef.shape=circleShape;
+		fixtureDef.isSensor=true;
+		fixtureDef.density=0.5+Math.random();
+		fixtureDef.restitution=0.4;
+		fixtureDef.friction=0.10;
+		var theSphere=world.CreateBody(bodyDef); 
+		theSphere.CreateFixture(fixtureDef);
+		setTimeout(function(){world.DestroyBody(theSphere)}, 10000);
+		return theSphere;
+	}
+
 	function addBox(pX,pY,w,h,bodyType,isSensor){
 		var bodyDef=new b2BodyDef();
 		bodyDef.position.Set(pX/worldScale,pY/worldScale);
@@ -255,9 +273,9 @@
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.isSensor=isSensor;
 		fixtureDef.shape=polygonShape;
-		fixtureDef.density=1+Math.random();
+		fixtureDef.density=0.5+Math.random();
 		fixtureDef.restitution=0.4;
-		fixtureDef.friction=0.5;
+		fixtureDef.friction=0.1;
 		var body=world.CreateBody(bodyDef);
 		body.CreateFixture(fixtureDef);
 	}
@@ -274,6 +292,8 @@
 	
 	function update() {
         world.Step(1/30,10,10);
+        fluff(Math.random() * 10000,Math.random() * 10000,Math.random()*10,Math.random()*10,b2Body.b2_dynamicBody,false);
+
 		for (var currentBody=world.GetBodyList(); currentBody; currentBody=currentBody.GetNext()) {
 			if (currentBody.GetType()==b2Body.b2_dynamicBody) {
 				var currentBodyControllers=currentBody.GetControllerList();
