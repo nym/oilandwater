@@ -108,18 +108,18 @@
 	document.addEventListener("keypress", function(e){
 		if (e.keyCode == 97) {
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
-				if (sphereVector[0].GetLinearVelocity().x > -20) {//if we haven't reached the max speed in this direction
-					sphereVector[0].ApplyImpulse(new b2Vec2( -2, 0), sphereVector[0].GetWorldCenter());
-					var s = bubble(sphereVector[0].GetPosition().x+5, sphereVector[0].GetPosition().y, 10);
-					s.ApplyImpulse(new b2Vec2( 10, 0), s.GetWorldCenter());
+				if (sphereVector[0].GetLinearVelocity().x > -40) {//if we haven't reached the max speed in this direction
+					sphereVector[0].ApplyImpulse(new b2Vec2( -4, 0), sphereVector[0].GetWorldCenter());
+					var s = bubble(sphereVector[0].GetPosition().x+4, sphereVector[0].GetPosition().y, 10);
+					s.ApplyImpulse(new b2Vec2( 5, Math.random()-0.5), s.GetWorldCenter());
 				}
 			}
 		}
 		if (e.keyCode == 100) {
-				if (sphereVector[0].GetLinearVelocity().x < 20) {
-					sphereVector[0].ApplyImpulse(new b2Vec2( 2, 0), sphereVector[0].GetWorldCenter());
-					var s = bubble(sphereVector[0].GetPosition().x-5, sphereVector[0].GetPosition().y, 10);
-					s.ApplyImpulse(new b2Vec2( -10, 0), s.GetWorldCenter());
+				if (sphereVector[0].GetLinearVelocity().x < 40) {
+					sphereVector[0].ApplyImpulse(new b2Vec2( 4, 0), sphereVector[0].GetWorldCenter());
+					var s = bubble(sphereVector[0].GetPosition().x-4, sphereVector[0].GetPosition().y, 10);
+					s.ApplyImpulse(new b2Vec2( -5, Math.random()-0.5), s.GetWorldCenter());
 
 				}
 		}
@@ -130,8 +130,8 @@
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, 2), sphereVector[0].GetWorldCenter());
 				sphereVector[0].m_fixtureList.SetDensity(d+0.05);
 				sphereVector[0].ResetMassData();
-				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y-5, 10);
-				s.ApplyImpulse(new b2Vec2( 0, -10), s.GetWorldCenter());
+				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y-4, 10);
+				s.ApplyImpulse(new b2Vec2( Math.random()-0.5, -5), s.GetWorldCenter());
 
 			}
 		}
@@ -141,8 +141,8 @@
 				sphereVector[0].ApplyImpulse(new b2Vec2( 0, -4), sphereVector[0].GetWorldCenter());
 				sphereVector[0].m_fixtureList.SetDensity(d-0.05);
 				sphereVector[0].ResetMassData();
-				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y+5, 10);
-				s.ApplyImpulse(new b2Vec2( 0, 10), s.GetWorldCenter());
+				var s = bubble(sphereVector[0].GetPosition().x, sphereVector[0].GetPosition().y+4, 10);
+				s.ApplyImpulse(new b2Vec2( Math.random()-0.5, 5), s.GetWorldCenter());
 
 			}
 		}
