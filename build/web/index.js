@@ -52,7 +52,7 @@
 	//addBox(470,230,20,200,b2Body.b2_staticBody,false);
 	
 	// this is the water (is Sensor)
-	addBox(3,1045,1080,1070,b2Body.b2_staticBody,true);
+	addBox(300,300,5080,5070,b2Body.b2_staticBody,true);
 
 	floor();
 	ceiling();
