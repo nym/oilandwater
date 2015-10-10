@@ -17,8 +17,8 @@
 	var sphereVector;
 	var blobX=320;
 	var blobY=240;
-	var particleNumber=16;
-	var particleDistance=50;
+	var particleNumber=9;
+	var particleDistance=60;
 
     var canvas = document.createElement(navigator.isCocoonJS ? 'screencanvas' : 'canvas');
     canvas.width  = window.innerWidth*window.devicePixelRatio;
@@ -60,12 +60,12 @@
 	right();
 	sphereVector=[];
 
-	sphereVector.push(sphere(blobX,blobY,25));
+	sphereVector.push(sphere(blobX,blobY,15));
 	for (var i=0; i<particleNumber; i++) {
 		var angle=(2*Math.PI)/particleNumber*i;
 		var posX=blobX+particleDistance*Math.cos(angle);
 		var posY=blobY+particleDistance*Math.sin(angle);
-		sphereVector.push(sphere(posX,posY,1));
+		sphereVector.push(sphere(posX,posY,3));
 		var dJoint=new b2DistanceJointDef();
 		dJoint.bodyA=sphereVector[0];
 		dJoint.bodyB=sphereVector[sphereVector.length-1];
@@ -160,7 +160,7 @@
 		fixtureDef.shape=circleShape;
 		fixtureDef.density=1;
 		fixtureDef.restitution=0.4;
-		fixtureDef.friction=0.9;
+		fixtureDef.friction=0.4;
 		var theSphere=world.CreateBody(bodyDef);
 		theSphere.CreateFixture(fixtureDef);
 		return theSphere;
@@ -223,7 +223,7 @@
 
 		bodyDef.position.Set(1699/worldScale,100/worldScale);
 		var polygonShape=new b2PolygonShape();
-		polygonShape.SetAsBox(100/worldScale,1100/worldScale);
+		polygonShape.SetAsBox(10/worldScale,1100/worldScale);
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=polygonShape;
 		fixtureDef.restitution=0.4;
