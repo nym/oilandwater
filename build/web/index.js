@@ -158,7 +158,7 @@
 		circleShape=new b2CircleShape(r/worldScale);
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=circleShape;
-		fixtureDef.density=2;
+		fixtureDef.density=1;
 		fixtureDef.restitution=0.4;
 		fixtureDef.friction=0.9;
 		var theSphere=world.CreateBody(bodyDef);
@@ -175,12 +175,12 @@
 		var fixtureDef=new b2FixtureDef();
 		fixtureDef.shape=circleShape;
 		fixtureDef.isSensor=true;
-		fixtureDef.density=0;
+		fixtureDef.density=0.9;
 		fixtureDef.restitution=0.4;
-		fixtureDef.friction=0.1;
+		fixtureDef.friction=0 ;
 		var theSphere=world.CreateBody(bodyDef); 
 		theSphere.CreateFixture(fixtureDef);
-		setTimeout(function(){world.DestroyBody(theSphere)}, 2500);
+		setTimeout(function(){world.DestroyBody(theSphere)}, 1500);
 		return theSphere;
 	}
 
