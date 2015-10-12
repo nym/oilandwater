@@ -1,5 +1,4 @@
 (function init() {
-    var kount = 0;
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 	var b2AABB = Box2D.Collision.b2AABB;
 	var b2BodyDef = Box2D.Dynamics.b2BodyDef;
@@ -29,7 +28,6 @@
 
     var ctx = canvas.getContext("2d");
   
-  
 	var worldScale = 20;
 	
 	var world = new b2World(new b2Vec2(0, 10),true);
@@ -46,10 +44,6 @@
 	buoyancyController.linearDrag=5;
 	buoyancyController.angularDrag=2;
 	world.AddController(buoyancyController);
-	//addBox(320,480,640,20,b2Body.b2_staticBody,false);
-	//addBox(320,340,320,20,b2Body.b2_staticBody,false);
-	//addBox(170,230,20,200,b2Body.b2_staticBody,false);
-	//addBox(470,230,20,200,b2Body.b2_staticBody,false);
 	
 	// this is the water (is Sensor)
 	addBox(300,300,5080,5070,b2Body.b2_staticBody,true);
@@ -99,12 +93,7 @@
 			distanceJoint=world.CreateJoint(dJoint);
 		}
 	}
-	/*var waterCanvas=new Sprite();
-	addChild(waterCanvas);
-	waterCanvas.graphics.beginFill(0x0000ff,0.2);
-	waterCanvas.graphics.drawRect(180,160,280,170);
-	waterCanvas.graphics.endFill();
-*/
+
 	document.addEventListener("keypress", function(e){
 		if (e.keyCode == 97) {
 			if (true) {//if the hero is pressing against the side of a block, applying impulse in the x-dir makes him "stick" to it
@@ -186,7 +175,6 @@
 
 	document.addEventListener("mousedown",function(e){
 		fluff(e.clientX * 1.3,e.clientY*1.3,Math.random()*10,Math.random()*10,b2Body.b2_dynamicBody,false);
-		//fluff(e.clientX * 2,e.clientY*2);
 	});
 	
 	function floor() {
@@ -230,9 +218,8 @@
 		fixtureDef.friction=0.5;
 		var theFloor=world.CreateBody(bodyDef);
 		theFloor.CreateFixture(fixtureDef);
-
-
 	}
+
 	function ceiling() {
 		var bodyDef=new b2BodyDef();
 		bodyDef.position.Set(1/worldScale,10/worldScale);
@@ -258,7 +245,7 @@
 		fixtureDef.density=0.5+Math.random();
 		fixtureDef.restitution=0.4;
 		fixtureDef.friction=0.10;
-		var theSphere=world.CreateBody(bodyDef); 
+		var theSphere=world.CreateBody(bodyDef);
 		theSphere.CreateFixture(fixtureDef);
 		setTimeout(function(){world.DestroyBody(theSphere)}, 10000);
 		return theSphere;
